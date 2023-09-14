@@ -11,9 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var displayLabel: UILabel!
-    
+
     private var isFinishTyping : Bool = true
-    private  var displayValue :Double {
+    private  var displayValue : Double {
         get {
             guard let number = Double(displayLabel.text!) else {
                 fatalError("error")
@@ -24,21 +24,18 @@ class ViewController: UIViewController {
             displayLabel.text = String(newValue)
         }
     }
-    
+     private  var calculatorLogic = CalculatorLogic()
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
         //What should happen when a non-number button is pressed
         isFinishTyping = true
-        
+        calculatorLogic.setNumber(displayValue)
         if let calcMethod = sender.currentTitle{
-            if calcMethod == "+/-" {
-                displayValue *= -1
+            print(calcMethod)
+            if let result = calculatorLogic.calculator(symbol: calcMethod){
+                displayValue = result
             }
-            else if  calcMethod == "AC"{
-                displayLabel.text = ""
-            } else if  calcMethod == "%" {
-                displayValue  *= 0.01
-            }
+           
         }
     
     }
